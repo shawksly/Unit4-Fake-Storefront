@@ -8,7 +8,7 @@ const url = 'https://fakestoreapi.com/products';
 const cart = [];
 
 function submitToCart() {
-  
+  // TODO left off here
 };
 
 function capitalize(word) {
@@ -60,6 +60,7 @@ function displayCards(data) {
 
   let row = document.createElement('div');
   row.className = 'row g-5';
+  // row.className = 'row row-cols-4 g-5';
   display.appendChild(row);
 
   data.forEach(item => {
@@ -74,11 +75,12 @@ function displayCards(data) {
 
 
     cardColumn.className = 'col-3';
-      cardContainer.className = 'card text-center text-bg-light border border-0 border-top border-info-subtle rounded-3 shadow-sm';
-        cardImage.className = 'card-img-top rounded-3 px-4 pt-3';
+    // cardColumn.className = 'col';
+      cardContainer.className = 'card text-center text-bg-light border border-0 border-top border-info-subtle rounded-3 shadow-sm h-100';
+        cardImage.className = 'card-img-top rounded-3 px-4 pt-3 m-auto';
         cardImage.alt = `Image of ${item.title}`;
         cardImage.src = item.image;
-        cardBody.className = 'card-body';
+        cardBody.className = 'card-body flex-grow-0';
           cardTitle.className = 'card-title';
           cardTitle.innerText = item.title;
         cardAccordContainer.className = 'accordion accordion-flush';
@@ -154,5 +156,5 @@ window.onload = (event) => {
   fakeStore(url + `?sort=asc`);
 };
 
-//how do i level cards
+//how do i level cards - is there a better way?
 //can i not use css
