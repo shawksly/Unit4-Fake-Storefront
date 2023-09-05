@@ -7,7 +7,7 @@ const display = document.getElementById('display');
 const url = 'https://fakestoreapi.com/products';
 const cart = [];
 
-function submitToCart() {
+function submitToCart(item) {
   // TODO left off here
 };
 
@@ -71,12 +71,12 @@ function displayCards(data) {
           let cardTitle = document.createElement('h4');
         let cardAccordContainer = document.createElement('div');
         let cardFooter = document.createElement('div');
-          let cardFooterLink = document.createElement('a');
+          // let cardFooterLink = document.createElement('a');
+          let cardFooterBtn = document.createElement('button');
 
 
     cardColumn.className = 'col-3';
-    // cardColumn.className = 'col';
-      cardContainer.className = 'card text-center text-bg-light border border-0 border-top border-info-subtle rounded-3 shadow-sm h-100';
+      cardContainer.className = 'card text-center text-bg-light border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-3 shadow h-100';
         cardImage.className = 'card-img-top rounded-3 px-4 pt-3 m-auto';
         cardImage.alt = `Image of ${item.title}`;
         cardImage.src = item.image;
@@ -85,10 +85,10 @@ function displayCards(data) {
           cardTitle.innerText = item.title;
         cardAccordContainer.className = 'accordion accordion-flush';
         cardAccordContainer.id = `Accordion-${item.id}`;
-        cardFooter.className = 'card-footer border-top border-info-subtle rounded-top-3 text-bg-dark';
-          cardFooterLink.href = '#';
-          cardFooterLink.className = 'card-link link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover fs-5';
-          cardFooterLink.innerText = 'Add to Cart'
+        cardFooter.className = 'card-footer border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3 text-bg-dark d-grid p-0';
+          cardFooterBtn.className = 'btn btn-dark btn';
+          cardFooterBtn.type = 'button';
+          cardFooterBtn.innerText = 'Add to Cart'
 
 
     row.appendChild(cardColumn);
@@ -100,7 +100,7 @@ function displayCards(data) {
           accordionItem(item, cardAccordContainer, 'description');
           accordionItem(item, cardAccordContainer, 'price');
         cardContainer.appendChild(cardFooter);
-          cardFooter.appendChild(cardFooterLink);
+          cardFooter.appendChild(cardFooterBtn);
 
 
   });
