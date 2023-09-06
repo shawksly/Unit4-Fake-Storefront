@@ -3,19 +3,75 @@ const navElectronics = document.getElementById('nav-electronics');
 const navJewelery = document.getElementById('nav-jewelery');
 const navMensClothing = document.getElementById('nav-mens-clothing');
 const navWomensClothing = document.getElementById('nav-womens-clothing');
+const navCart = document.getElementById('nav-cart');
+const modalItemTable = document.getElementById('item-table-body');
+const tableSubtotal = document.getElementById('table-subtotal');
+const tableTax = document.getElementById('table-tax');
+const tableShipping = document.getElementById('table-shipping');
+const tableTotal = document.getElementById('table-total');
 const display = document.getElementById('display');
 const url = 'https://fakestoreapi.com/products';
 const cart = [];
 
 function submitToCart(item) {
-  console.log(item);
-  console.log(cart);
-  cart.push(item);
-  console.log(cart);
+  let matchingIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+
+  matchingIndex === -1
+  ?
+  cart.push(item)
+  :
+  cart[matchingIndex].quantity += 1;
+};
+
+function displayCart() {
+  modalItemTable.innerHTML = '';
+  // TODO swap price with individual values
+  let subtotal = 0;
+  let tax = 0;
+  let shipping = 0;
+  let total = 0;
+  
+  if (cart.length !== 0) {
+    
+    cart.forEach(item => {
+      subtotal += item.cost * item.quantity;
+
+      let cartRow = document.createElement('tr');
+      modalItemTable.appendChild(cartRow);
+
+      let cartItemQuantity = document.createElement('td');
+      cartItemQuantity.innerText = item.quantity;
+      modalItemTable.appendChild(cartItemQuantity);
+
+      let cartItemListing = document.createElement('td');
+      cartItemListing.innerText = `${item.title} at ${priceFormat(item.cost)} ea`;
+      modalItemTable.appendChild(cartItemListing);
+
+      let cartItemPrice = document.createElement('td');
+      cartItemPrice.innerText = priceFormat(item.cost * item.quantity);
+      modalItemTable.appendChild(cartItemPrice);
+    });
+    
+    tax = subtotal * 0.07;
+    shipping = subtotal * 0.1;
+    total = subtotal + tax + shipping;
+    
+  };
+
+  tableSubtotal.innerText = priceFormat(subtotal);
+  tableTax.innerText = priceFormat(tax);
+  tableShipping.innerText = priceFormat(shipping);
+  tableTotal.innerText = priceFormat(total);
+  
+  console.log(subtotal);
 };
 
 function capitalize(word) {
   return word[0].toUpperCase() + word.slice(1).toLowerCase();
+};
+
+function priceFormat(cost) {
+  return `$${cost.toFixed(2)}`;
 };
 
 function accordionItem(storeItem, container, subject) {
@@ -54,7 +110,7 @@ function accordionItem(storeItem, container, subject) {
     cardAccordText.innerText = storeItem[subject];
   } else if (subject === 'price') {
     cardAccordText.className = `accordion-body`;
-    cardAccordText.innerText = `$${storeItem[subject].toFixed(2)}`;
+    cardAccordText.innerText = priceFormat(storeItem[subject]);
   };
   cardAccordBody.appendChild(cardAccordText);
 
@@ -153,6 +209,7 @@ let fakeStore = async (endpoint) => {
 
   console.log(storeData);
   displayCards(storeData);
+  window.scrollTo(0, 0);
 };
 
 // TODO change active link
@@ -160,30 +217,41 @@ let fakeStore = async (endpoint) => {
 navHome.addEventListener('click', e => {
   e.preventDefault();
   fakeStore(url + `?sort=asc`);
+  window.scrollTo(0, 0);
 });
 
 navElectronics.addEventListener('click', e => {
   e.preventDefault();
   fakeStore(url + `/category/electronics?sort=asc`);
+  window.scrollTo(0, 0);
 });
 
 navJewelery.addEventListener('click', e => {
   e.preventDefault();
   fakeStore(url + `/category/jewelery?sort=asc`);
+  window.scrollTo(0, 0);
 });
 
 navMensClothing.addEventListener('click', e => {
   e.preventDefault();
   fakeStore(url + `/category/men's%20clothing?sort=asc`);
+  window.scrollTo(0, 0);
 });
 
 navWomensClothing.addEventListener('click', e => {
   e.preventDefault();
   fakeStore(url + `/category/women's%20clothing?sort=asc`);
+  window.scrollTo(0, 0);
+});
+
+navCart.addEventListener('click', e => {
+  e.preventDefault();
+  displayCart();
 });
 
 window.onload = (event) => {
   fakeStore(url + `?sort=asc`);
+  window.scrollTo(0, 0);
 };
 
 //how do i level cards - is there a better way?
