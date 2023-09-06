@@ -5,10 +5,13 @@ const navMensClothing = document.getElementById('nav-mens-clothing');
 const navWomensClothing = document.getElementById('nav-womens-clothing');
 const navCart = document.getElementById('nav-cart');
 const modalItemTable = document.getElementById('item-table-body');
+const modalPriceTable = document.getElementById('modal-price-table');
 const tableSubtotal = document.getElementById('table-subtotal');
 const tableTax = document.getElementById('table-tax');
 const tableShipping = document.getElementById('table-shipping');
 const tableTotal = document.getElementById('table-total');
+const modalClearBtn = document.getElementById('modal-clear-button');
+const modalPurchaseBtn = document.getElementById('modal-purchase-button');
 const display = document.getElementById('display');
 const url = 'https://fakestoreapi.com/products';
 const cart = [];
@@ -25,7 +28,12 @@ function submitToCart(item) {
 
 function displayCart() {
   modalItemTable.innerHTML = '';
-  // TODO swap price with individual values
+
+  let prevAlert = document.getElementById('modal-purchase-alert');
+  if (prevAlert != null) {
+    prevAlert.remove();
+  };
+
   let subtotal = 0;
   let tax = 0;
   let shipping = 0;
@@ -55,6 +63,10 @@ function displayCart() {
     tax = subtotal * 0.07;
     shipping = subtotal * 0.1;
     total = subtotal + tax + shipping;
+
+    modalClearBtn.removeAttribute('disabled');
+    modalPurchaseBtn.removeAttribute('disabled');
+    modalPurchaseBtn.innerText = `Purchase for ${priceFormat(total)}`;
     
   };
 
@@ -62,8 +74,13 @@ function displayCart() {
   tableTax.innerText = priceFormat(tax);
   tableShipping.innerText = priceFormat(shipping);
   tableTotal.innerText = priceFormat(total);
-  
-  console.log(subtotal);
+};
+
+function clearCart() {
+  cart.length = 0;
+  modalClearBtn.setAttribute('disabled','');
+  modalPurchaseBtn.setAttribute('disabled','');
+  modalPurchaseBtn.innerText = 'Purchase';
 };
 
 function capitalize(word) {
@@ -247,6 +264,30 @@ navWomensClothing.addEventListener('click', e => {
 navCart.addEventListener('click', e => {
   e.preventDefault();
   displayCart();
+});
+
+modalClearBtn.addEventListener('click', e => {
+  e.preventDefault
+  clearCart();
+  displayCart();
+});
+
+modalPurchaseBtn.addEventListener('click', e => {
+  e.preventDefault
+  clearCart();
+  displayCart();
+
+  let alert = document.createElement('div');
+  alert.className = 'alert alert-info alert-dismissible fade show text-center border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3';
+  alert.id = 'modal-purchase-alert';
+  alert.innerHTML = '<strong>Thank you for your purchase!</strong>';
+  modalPriceTable.insertAdjacentElement('beforebegin', alert);
+
+  let alertDismissBtn = document.createElement('button');
+  alertDismissBtn.type = 'button';
+  alertDismissBtn.className = 'btn-close';
+  alertDismissBtn.setAttribute('data-bs-dismiss', 'alert');
+  alert.appendChild(alertDismissBtn);
 });
 
 window.onload = (event) => {

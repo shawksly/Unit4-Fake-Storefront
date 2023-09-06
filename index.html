@@ -10,64 +10,64 @@
 <body class="d-flex flex-column align-items-center overflow-x-hidden bg-secondary">
 
   <!-- Modal -->
-<div class="modal fade" id="store-modal" tabindex="-1" aria-labelledby="store-modal-label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-bg-light border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="store-modal-label">Your Cart</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <table class="table table-light mb-5">
-          <thead>
-            <tr>
-              <th scope="col">Quantity</th>
-              <th scope="col">Item</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          <tbody id="item-table-body">
-            <tr>
-              <td>2</td>
-              <td>Item Title at $2.00 ea</td>
-              <td>$4.00</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Item Title at $2.00 ea</td>
-              <td>$3.00</td>
-            </tr>
-          </tbody>
-        </table>
-        <table class="table table-light mt-5">
-          <tbody>
-            <tr>
-              <td scope="col">Subtotal</td>
-              <td id="table-subtotal">$0.00</td>
-            </tr>
-            <tr>
-              <td scope="col">Tax</td>
-              <td id="table-tax">$0.00</td>
-            </tr>
-            <tr>
-              <td scope="col">Shipping</td>
-              <td id="table-shipping">$0.00</td>
-            </tr>
-            <tr class="table-info">
-              <th scope="col">Total</th>
-              <td id="table-total">$0.00</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-dark border border-3 border-start-0 border-end-0 border-bottom-0 border-danger-subtle rounded-top-3 me-auto">Clear Cart</button>
-        <!-- TODO disable/enable button -->
-        <button type="button" class="btn btn-dark border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3">Purchase for $0.00</button>
+  <div class="modal fade" id="store-modal" tabindex="-1" aria-labelledby="store-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-bg-light border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="store-modal-label">Your Cart</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-light mb-5">
+            <thead>
+              <tr>
+                <th scope="col">Quantity</th>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody id="item-table-body">
+              <tr>
+                <td>2</td>
+                <td>Item Title at $2.00 ea</td>
+                <td>$4.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Item Title at $2.00 ea</td>
+                <td>$3.00</td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-light mt-5" id="modal-price-table">
+            <tbody>
+              <tr>
+                <td scope="col">Subtotal</td>
+                <td id="table-subtotal">$0.00</td>
+              </tr>
+              <tr>
+                <td scope="col">Tax</td>
+                <td id="table-tax">$0.00</td>
+              </tr>
+              <tr>
+                <td scope="col">Shipping</td>
+                <td id="table-shipping">$0.00</td>
+              </tr>
+              <tr class="table-info">
+                <th scope="col">Total</th>
+                <td id="table-total">$0.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark border border-3 border-start-0 border-end-0 border-bottom-0 border-danger-subtle rounded-top-3 me-auto" id="modal-clear-button" disabled>Clear Cart</button>
+          <!-- TODO disable/enable button -->
+          <button type="button" class="btn btn-dark border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3" id="modal-purchase-button" disabled>Purchase</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg align-self-stretch sticky-top bg-body-secondary border-3 border-bottom border-info-subtle rounded-bottom-3" data-bs-theme="secondary">
