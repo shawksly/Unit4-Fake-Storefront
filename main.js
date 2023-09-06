@@ -8,7 +8,10 @@ const url = 'https://fakestoreapi.com/products';
 const cart = [];
 
 function submitToCart(item) {
-  // TODO left off here
+  console.log(item);
+  console.log(cart);
+  cart.push(item);
+  console.log(cart);
 };
 
 function capitalize(word) {
@@ -16,42 +19,48 @@ function capitalize(word) {
 };
 
 function accordionItem(storeItem, container, subject) {
+
+  // accordion item container
   let cardAccord = document.createElement('div');
-    let cardAccordHead = document.createElement('h2');
-      let cardAccordBtn = document.createElement('button');
-    let cardAccordBody = document.createElement('div');
-      let cardAccordText = document.createElement('div');
-
   cardAccord.className = 'accordion-item text-bg-light';
-    cardAccordHead.className = 'accordion-header';
-      cardAccordBtn.className = 'accordion-button collapsed bg-light fs-5 shadow-none';
-      cardAccordBtn.type = 'button';
-      cardAccordBtn.setAttribute('data-bs-toggle', 'collapse');
-      cardAccordBtn.setAttribute('data-bs-target', `#${storeItem.id}-collapse-${subject}`);
-      cardAccordBtn.innerText = `${capitalize(subject)}`;
-    cardAccordBody.className = 'accordion-collapse collapse';
-    cardAccordBody.id = `${storeItem.id}-collapse-${subject}`;
-    cardAccordBody.setAttribute('data-bs-parent', `#Accordion-${storeItem.id}`);
-
-
-    // TODO format description and price
-      if (subject === 'description') {
-        cardAccordText.className = `accordion-body`;
-        cardAccordText.innerText = storeItem[subject];
-      } else if (subject === 'price') {
-        cardAccordText.className = `accordion-body`;
-        cardAccordText.innerText = `$${storeItem[subject]}`;
-      };
-
   container.appendChild(cardAccord);
-    cardAccord.appendChild(cardAccordHead);
-      cardAccordHead.appendChild(cardAccordBtn);
-    cardAccord.appendChild(cardAccordBody);
-      cardAccordBody.appendChild(cardAccordText);
+
+  // accordion item header
+  let cardAccordHead = document.createElement('h2');
+  cardAccordHead.className = 'accordion-header';
+  cardAccord.appendChild(cardAccordHead);
+  
+  // accordion item button
+  let cardAccordBtn = document.createElement('button');
+  cardAccordBtn.className = 'accordion-button collapsed bg-light fs-5 shadow-none';
+  cardAccordBtn.type = 'button';
+  cardAccordBtn.setAttribute('data-bs-toggle', 'collapse');
+  cardAccordBtn.setAttribute('data-bs-target', `#${storeItem.id}-collapse-${subject}`);
+  cardAccordBtn.innerText = `${capitalize(subject)}`;
+  cardAccordHead.appendChild(cardAccordBtn);
+  
+  // accordion item body
+  let cardAccordBody = document.createElement('div');
+  cardAccordBody.className = 'accordion-collapse collapse';
+  cardAccordBody.id = `${storeItem.id}-collapse-${subject}`;
+  cardAccordBody.setAttribute('data-bs-parent', `#Accordion-${storeItem.id}`);
+  cardAccord.appendChild(cardAccordBody);
+
+  // accordion item body text
+  let cardAccordText = document.createElement('div');
+  // TODO format description and price
+  if (subject === 'description') {
+    cardAccordText.className = `accordion-body`;
+    cardAccordText.innerText = storeItem[subject];
+  } else if (subject === 'price') {
+    cardAccordText.className = `accordion-body`;
+    cardAccordText.innerText = `$${storeItem[subject].toFixed(2)}`;
+  };
+  cardAccordBody.appendChild(cardAccordText);
 
 };
 
-function displayCards(data) {
+let displayCards = function(data) {
   
   display.innerHTML = '';
   // 1. create new element
@@ -64,44 +73,65 @@ function displayCards(data) {
   display.appendChild(row);
 
   data.forEach(item => {
+
+    // card column
     let cardColumn = document.createElement('div');
-      let cardContainer = document.createElement('div');
-        let cardImage = document.createElement('img');
-        let cardBody = document.createElement('div');
-          let cardTitle = document.createElement('h4');
-        let cardAccordContainer = document.createElement('div');
-        let cardFooter = document.createElement('div');
-          // let cardFooterLink = document.createElement('a');
-          let cardFooterBtn = document.createElement('button');
-
-
     cardColumn.className = 'col-3';
-      cardContainer.className = 'card text-center text-bg-light border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-3 shadow h-100';
-        cardImage.className = 'card-img-top rounded-3 px-4 pt-3 m-auto';
-        cardImage.alt = `Image of ${item.title}`;
-        cardImage.src = item.image;
-        cardBody.className = 'card-body flex-grow-0';
-          cardTitle.className = 'card-title';
-          cardTitle.innerText = item.title;
-        cardAccordContainer.className = 'accordion accordion-flush';
-        cardAccordContainer.id = `Accordion-${item.id}`;
-        cardFooter.className = 'card-footer border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3 text-bg-dark d-grid p-0';
-          cardFooterBtn.className = 'btn btn-dark btn';
-          cardFooterBtn.type = 'button';
-          cardFooterBtn.innerText = 'Add to Cart'
-
-
     row.appendChild(cardColumn);
-      cardColumn.appendChild(cardContainer);
-        cardContainer.appendChild(cardImage);
-        cardContainer.appendChild(cardBody);
-          cardBody.appendChild(cardTitle);
-        cardContainer.appendChild(cardAccordContainer);
-          accordionItem(item, cardAccordContainer, 'description');
-          accordionItem(item, cardAccordContainer, 'price');
-        cardContainer.appendChild(cardFooter);
-          cardFooter.appendChild(cardFooterBtn);
 
+    // card container
+    let cardContainer = document.createElement('div');
+    cardContainer.className = 'card text-center text-bg-light border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-3 shadow h-100';
+    cardColumn.appendChild(cardContainer);
+
+    // card image
+    let cardImage = document.createElement('img');
+    cardImage.className = 'card-img-top rounded-3 px-4 pt-3 m-auto';
+    cardImage.alt = `Image of ${item.title}`;
+    cardImage.src = item.image;
+    cardContainer.appendChild(cardImage);
+
+    // card body
+    let cardBody = document.createElement('div');
+    cardBody.className = 'card-body flex-grow-0';
+    cardContainer.appendChild(cardBody);
+    
+    // card title
+    let cardTitle = document.createElement('h4');
+    cardTitle.className = 'card-title';
+    cardTitle.innerText = item.title;
+    cardBody.appendChild(cardTitle);
+
+    // card accordion container
+    let cardAccordContainer = document.createElement('div');
+    cardAccordContainer.className = 'accordion accordion-flush';
+    cardAccordContainer.id = `Accordion-${item.id}`;
+    cardContainer.appendChild(cardAccordContainer);
+
+    // card accordion items
+    accordionItem(item, cardAccordContainer, 'description');
+    accordionItem(item, cardAccordContainer, 'price');
+
+    // card footer
+    let cardFooter = document.createElement('div');
+    cardFooter.className = 'card-footer border border-3 border-start-0 border-end-0 border-bottom-0 border-info-subtle rounded-top-3 text-bg-dark d-grid p-0';
+    cardContainer.appendChild(cardFooter);
+
+    // card footer button
+    let cardFooterBtn = document.createElement('button');
+    cardFooterBtn.className = 'btn btn-dark btn';
+    cardFooterBtn.type = 'button';
+    cardFooterBtn.onclick = function() {
+      const cartObject = {
+        id: item.id,
+        title: item.title,
+        cost: item.price,
+        quantity: 1
+      };
+      submitToCart(cartObject);
+    };
+    cardFooterBtn.innerText = 'Add to Cart'
+    cardFooter.appendChild(cardFooterBtn);
 
   });
 
@@ -157,4 +187,7 @@ window.onload = (event) => {
 };
 
 //how do i level cards - is there a better way?
-//can i not use css
+//can i not use css - last line of U4_04
+// why is this like this - footer button
+// while loops
+// layout declarations > functions > code ?
