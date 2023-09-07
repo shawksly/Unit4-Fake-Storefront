@@ -215,6 +215,7 @@ let displayCards = function(data) {
   display.innerHTML = '';
 
   // obligatory process comment from the instructions
+  // I originally had creations, edits and appends grouped together in the data.forEach(). Is there a downside to how I ended up doing it?
   // 1. create new element
   // 2. edit the element
   // 3. add the element to the webpage
@@ -427,7 +428,10 @@ navWomensClothing.addEventListener('click', e => {
   window.scrollTo(0, 0);
 });
 
-// runs fakeStore() on site load, with all items, and scrolls up to show the spinner
+
+
+// ************************
+// * onload event - runs fakeStore() on site load, with all items, and scrolls up to show the spinner
 window.onload = (event) => {
   fakeStore(url + `?sort=asc`);
   window.scrollTo(0, 0);
