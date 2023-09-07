@@ -1,3 +1,4 @@
+// navber links
 const navHome = document.getElementById('nav-home');
 const navElectronics = document.getElementById('nav-electronics');
 const navJewelery = document.getElementById('nav-jewelery');
@@ -15,6 +16,14 @@ const modalPurchaseBtn = document.getElementById('modal-purchase-button');
 const display = document.getElementById('display');
 const url = 'https://fakestoreapi.com/products';
 const cart = [];
+
+function capitalize(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+};
+
+function priceFormat(cost) {
+  return `$${cost.toFixed(2)}`;
+};
 
 function submitToCart(item) {
   let matchingIndex = cart.findIndex(cartItem => cartItem.id === item.id);
@@ -83,14 +92,6 @@ function clearCart() {
   modalPurchaseBtn.innerText = 'Purchase';
 };
 
-function capitalize(word) {
-  return word[0].toUpperCase() + word.slice(1).toLowerCase();
-};
-
-function priceFormat(cost) {
-  return `$${cost.toFixed(2)}`;
-};
-
 function accordionItem(storeItem, container, subject) {
 
   // accordion item container
@@ -121,7 +122,6 @@ function accordionItem(storeItem, container, subject) {
 
   // accordion item body text
   let cardAccordText = document.createElement('div');
-  // TODO format description and price
   if (subject === 'description') {
     cardAccordText.className = `accordion-body`;
     cardAccordText.innerText = storeItem[subject];
@@ -229,34 +229,46 @@ let fakeStore = async (endpoint) => {
   window.scrollTo(0, 0);
 };
 
-// TODO change active link
+function setActiveLink(event) {
+  navHome.classList.remove('active');
+  navElectronics.classList.remove('active');
+  navJewelery.classList.remove('active');
+  navMensClothing.classList.remove('active');
+  navWomensClothing.classList.remove('active');
+  event.currentTarget.classList.add('active');
+};
 
 navHome.addEventListener('click', e => {
   e.preventDefault();
+  setActiveLink(e);
   fakeStore(url + `?sort=asc`);
   window.scrollTo(0, 0);
 });
 
 navElectronics.addEventListener('click', e => {
   e.preventDefault();
+  setActiveLink(e);
   fakeStore(url + `/category/electronics?sort=asc`);
   window.scrollTo(0, 0);
 });
 
 navJewelery.addEventListener('click', e => {
   e.preventDefault();
+  setActiveLink(e);
   fakeStore(url + `/category/jewelery?sort=asc`);
   window.scrollTo(0, 0);
 });
 
 navMensClothing.addEventListener('click', e => {
   e.preventDefault();
+  setActiveLink(e);
   fakeStore(url + `/category/men's%20clothing?sort=asc`);
   window.scrollTo(0, 0);
 });
 
 navWomensClothing.addEventListener('click', e => {
   e.preventDefault();
+  setActiveLink(e);
   fakeStore(url + `/category/women's%20clothing?sort=asc`);
   window.scrollTo(0, 0);
 });
